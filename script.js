@@ -1,7 +1,7 @@
 const express = require("express")
 const dotenv = require("dotenv")
+const connectDB = require('./config/db');
 
-const mongoose = require('mongoose');
 
 
 dotenv.config()
@@ -10,12 +10,21 @@ const app = express()
 // Middleware
 app.use(express.json())
 
-
 const PORT = process.env.PORT || 7000
 
-    mongoose.connect(`${process.env.MONGODB_URL}`)
-  .then(() => console.log('MongoDB Connected..!'));
+// Connect Database
+connectDB();
 
-     app.listen(PORT, ()=>{
+
+// Define Routes
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/restaurants', require('./routes/restaurant'));
+app.use('/api/orders', require('./routes/order'));
+app.use('/api/deliveries', require('./routes/delivery'));
+
+
+
+   
+   app.listen(PORT, ()=>{
         console.log(`server started running on ${PORT}`)
      })
