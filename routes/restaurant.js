@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// CRUD operations for menu items (can be nested under /restaurants/:id/menu)
+// CRUD operations for menu items
 router.post('/:id/menu', async (req, res) => {
   try {
     const restaurant = await Restaurant.findById(req.params.id);

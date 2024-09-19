@@ -13,10 +13,15 @@ router.post('/register', async (req, res) => {
     
     user = new User({ username, email, password, role });
     await user.save();
+    delete user.password;
+    res.status(201).json({ msg: 'User registered successfully', user });
 
-    res.status(201).json({ msg: 'User registered successfully' });
+  
   } catch (error) {
     res.status(500).send('Server Error');
+    console.log(error)
+
+
   }
 });
 
